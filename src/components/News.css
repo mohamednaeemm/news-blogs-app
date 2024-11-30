@@ -59,6 +59,7 @@
     transform: translateY(-50%);
     color: #bbb;
     font-size: 1.8rem;
+    cursor: pointer;
 }
 
 .news-content {
