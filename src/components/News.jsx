@@ -10,6 +10,7 @@ import noImg from '../assets/images/no-img.png'
 
 import { useEffect } from 'react'
 import axios from 'axios'
+import NewsModel from './NewsModel'
 
 const categories = ['general', 'world', 'business', 'technology', 'entertainment', 'sports', 'science', 'health', 'nation']
 
@@ -20,6 +21,8 @@ const News = () => {
     const [selectedCategory, setSelectedCategory] = useState('general')
     const [searchInput, setSearchInput] = useState("")
     const [searchQuery, setSearchQuery] = useState("")
+    const [showModel, setShowModel] = useState(false)
+    const [selectedArticle, setSelectedArticle] = useState(null)
 
     useEffect(() => {
         const fetchNews = async () => {
@@ -62,6 +65,11 @@ const News = () => {
         setSearchInput("")
     }
 
+    const handleArticleClick = (article) => {
+        setSelectedArticle(article)
+        setShowModel(true)
+    }
+
   return (
     <div className="news">
       <header className="news-header">
@@ -93,7 +101,7 @@ const News = () => {
             </div>
             <div className="news-section">
                 {headline && (
-                <div className="headline">
+                <div className="headline" onClick={() => handleArticleClick(headline)}>
                     <img src={headline.image || noImg} alt={headline.title} />
                     <h2 className="headline-title">{headline.title}<i className="fa-regular fa-bookmark bookmark"></i>
                     </h2>
@@ -101,13 +109,14 @@ const News = () => {
                 )}
                 <div className="news-grid">
                     {news.map((article, index) => {
-                        <div key={index} className="news-grid-item">
+                        <div key={index} className="news-grid-item" onClick={() => handleArticleClick(article)}>
                         <img src={article.image || noImg} alt={article.title}/>
                         <h3>{article.title}<i className="fa-regular fa-bookmark bookmark"></i></h3>
                         </div>
                     })}
                 </div>
             </div>
+            <NewsModel show={showModel} article={selectedArticle} onClose={() => setShowModel(false)}/>
             <div className="my-blogs">My Blogs</div>
             <div className="weather-calendar">
                 <Weather />
