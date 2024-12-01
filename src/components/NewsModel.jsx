@@ -1,5 +1,7 @@
 import React from 'react'
 import './NewsModel.css'
+import './Model.css'
+
 
 const NewsModel = ({show, article, onClose}) => {
     if (!show) {

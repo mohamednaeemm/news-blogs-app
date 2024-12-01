@@ -11,6 +11,7 @@ import noImg from '../assets/images/no-img.png'
 import { useEffect } from 'react'
 import axios from 'axios'
 import NewsModel from './NewsModel'
+import Bookmarks from './Bookmarks'
 
 const categories = ['general', 'world', 'business', 'technology', 'entertainment', 'sports', 'science', 'health', 'nation']
 
@@ -23,6 +24,9 @@ const News = () => {
     const [searchQuery, setSearchQuery] = useState("")
     const [showModel, setShowModel] = useState(false)
     const [selectedArticle, setSelectedArticle] = useState(null)
+    const [bookmarks, setBookmarks] = useState([])
+    const [showBookmarksModel, setShowBookmarksModel] = useState(false)
+
 
     useEffect(() => {
         const fetchNews = async () => {
@@ -70,6 +74,13 @@ const News = () => {
         setShowModel(true)
     }
 
+    const handleBookmarkClick = (article) => {
+    setBookmarks((prevBookmarks) => {
+        const updatedBookmarks = prevBookmarks.find((bookmark) => bookmark.title === article.title) ? prevBookmarks.filter((bookmark) => bookmark.title !== article.title) : [...prevBookmarks, article];
+        return updatedBookmarks;
+        });
+      }
+
   return (
     <div className="news">
       <header className="news-header">
@@ -92,10 +103,10 @@ const News = () => {
                 <nav className="categories">
                     <h1 className="nav-heading">categories</h1>
                     <div className="nav-links">
-                        {categories.map((category) => {<a href="" key={category} className="nav-link" onClick={(e) => handleCategoryClick(e, category)}>{category}</a>})}
+                        {categories.map((category) => (<a href="" key={category} className="nav-link" onClick={(e) => handleCategoryClick(e, category)}>{category}</a>))}
                         
                         
-                        <a href="" className="nav-link">Bookmark <i className="fa-regular fa-bookmark"></i></a>
+                        <a href="#" className="nav-link" onClick={() => setShowBookmarksModel(true)}>Bookmarks <i className="fa-solid fa-bookmark"></i></a>
                     </div>
                 </nav>
             </div>
@@ -103,20 +114,27 @@ const News = () => {
                 {headline && (
                 <div className="headline" onClick={() => handleArticleClick(headline)}>
                     <img src={headline.image || noImg} alt={headline.title} />
-                    <h2 className="headline-title">{headline.title}<i className="fa-regular fa-bookmark bookmark"></i>
+                    <h2 className="headline-title">{headline.title}<i className={`${bookmarks.some((bookmark) => bookmark.title === headline.title) ? "fa-solid" : "fa-regular"}fa-bookmark bookmark`} onClick={(e) => {
+                            e.stopPropagation();
+                            handleBookmarkClick(headline)
+                        }}></i>
                     </h2>
                 </div>
                 )}
                 <div className="news-grid">
-                    {news.map((article, index) => {
+                    {news.map((article, index) => (
                         <div key={index} className="news-grid-item" onClick={() => handleArticleClick(article)}>
                         <img src={article.image || noImg} alt={article.title}/>
-                        <h3>{article.title}<i className="fa-regular fa-bookmark bookmark"></i></h3>
+                        <h3>{article.title}<i className={`${bookmarks.some((bookmark) => bookmark.title === article.title) ? "fa-solid" : "fa-regular"}fa-bookmark bookmark`} onClick={(e) => {
+                            e.stopPropagation();
+                            handleBookmarkClick(article)
+                        }}></i></h3>
                         </div>
-                    })}
+                    ))}
                 </div>
             </div>
             <NewsModel show={showModel} article={selectedArticle} onClose={() => setShowModel(false)}/>
+            <Bookmarks show={showBookmarksModel} bookmarks={bookmarks} onClose={() => setShowBookmarksModel(false)} onSelectArticle={handleArticleClick} onDeleteBookmarks={handleBookmarkClick} />
             <div className="my-blogs">My Blogs</div>
             <div className="weather-calendar">
                 <Weather />
