@@ -49,6 +49,8 @@ const News = () => {
                 setHeadline(fetchedNews[0])
                 setNews(fetchedNews.slice(1, 7))
 
+                const saveBookmarks = JSON.parse(localStorage.getItem('bookmarks')) || []
+                setBookmarks(saveBookmarks)
                 
             } catch (error) {
                 console.error("Error fetching news:", error);
@@ -77,6 +79,7 @@ const News = () => {
     const handleBookmarkClick = (article) => {
     setBookmarks((prevBookmarks) => {
         const updatedBookmarks = prevBookmarks.find((bookmark) => bookmark.title === article.title) ? prevBookmarks.filter((bookmark) => bookmark.title !== article.title) : [...prevBookmarks, article];
+        localStorage.setItem('bookmarks', JSON.stringify(updatedBookmarks));
         return updatedBookmarks;
         });
       }
@@ -114,7 +117,7 @@ const News = () => {
                 {headline && (
                 <div className="headline" onClick={() => handleArticleClick(headline)}>
                     <img src={headline.image || noImg} alt={headline.title} />
-                    <h2 className="headline-title">{headline.title}<i className={`${bookmarks.some((bookmark) => bookmark.title === headline.title) ? "fa-solid" : "fa-regular"}fa-bookmark bookmark`} onClick={(e) => {
+                    <h2 className="headline-title">{headline.title}<i className={`${bookmarks.some((bookmark) => bookmark.title === headline.title) ? "fa-solid" : "fa-regular"} fa-bookmark bookmark`} onClick={(e) => {
                             e.stopPropagation();
                             handleBookmarkClick(headline)
                         }}></i>
@@ -125,7 +128,7 @@ const News = () => {
                     {news.map((article, index) => (
                         <div key={index} className="news-grid-item" onClick={() => handleArticleClick(article)}>
                         <img src={article.image || noImg} alt={article.title}/>
-                        <h3>{article.title}<i className={`${bookmarks.some((bookmark) => bookmark.title === article.title) ? "fa-solid" : "fa-regular"}fa-bookmark bookmark`} onClick={(e) => {
+                        <h3>{article.title}<i className={`${bookmarks.some((bookmark) => bookmark.title === article.title) ? "fa-solid" : "fa-regular"} fa-bookmark bookmark`} onClick={(e) => {
                             e.stopPropagation();
                             handleBookmarkClick(article)
                         }}></i></h3>
@@ -134,7 +137,7 @@ const News = () => {
                 </div>
             </div>
             <NewsModel show={showModel} article={selectedArticle} onClose={() => setShowModel(false)}/>
-            <Bookmarks show={showBookmarksModel} bookmarks={bookmarks} onClose={() => setShowBookmarksModel(false)} onSelectArticle={handleArticleClick} onDeleteBookmarks={handleBookmarkClick} />
+            <Bookmarks show={showBookmarksModel} bookmarks={bookmarks} onClose={() => setShowBookmarksModel(false)} onSelectArticle={handleArticleClick} onDeleteBookmark={handleBookmarkClick} />
             <div className="my-blogs">My Blogs</div>
             <div className="weather-calendar">
                 <Weather />
