@@ -127,11 +127,11 @@ const News = () => {
                 <div className="news-grid">
                     {news.map((article, index) => (
                         <div key={index} className="news-grid-item" onClick={() => handleArticleClick(article)}>
-                        <img src={article.image || noImg} alt={article.title}/>
-                        <h3>{article.title}<i className={`${bookmarks.some((bookmark) => bookmark.title === article.title) ? "fa-solid" : "fa-regular"} fa-bookmark bookmark`} onClick={(e) => {
-                            e.stopPropagation();
-                            handleBookmarkClick(article)
-                        }}></i></h3>
+                            <img src={article.image || noImg} alt={article.title}/>
+                            <h3>{article.title}<i className={`${bookmarks.some((bookmark) => bookmark.title === article.title) ? "fa-solid" : "fa-regular"} fa-bookmark bookmark`} onClick={(e) => {
+                                e.stopPropagation();
+                                handleBookmarkClick(article)
+                            }}></i></h3>
                         </div>
                     ))}
                 </div>
