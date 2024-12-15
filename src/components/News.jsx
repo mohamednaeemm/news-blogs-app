@@ -15,7 +15,7 @@ import Bookmarks from './Bookmarks'
 
 const categories = ['general', 'world', 'business', 'technology', 'entertainment', 'sports', 'science', 'health', 'nation']
 
-const News = () => {
+const News = ({ onShowBlogs }) => {
 
     const [headline, setHeadline] = useState(null)
     const [news, setNews] = useState([])
@@ -99,7 +99,7 @@ const News = () => {
       </header>
         <div className="news-content" >
             <div className="navbar">
-                <div className="user">
+                <div className="user" onClick={onShowBlogs}>
                     <img src={userImg} alt="User Image" />
                     <p>Mohamed&apos;s Blog</p>
                 </div>
@@ -144,7 +144,14 @@ const News = () => {
                 <Calendar />
             </div>
         </div>
-        <footer className="news-footer">Footer</footer>
+        <footer className="news-footer">
+            <p>
+                <span>News & Blogs App</span>
+            </p>
+            <p>
+                &copy; All Right Reserved. By Mohamed Naeem
+            </p>
+        </footer>
     </div>
   )
 }
