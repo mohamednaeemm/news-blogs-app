@@ -7,6 +7,10 @@ import Calendar from './Calendar'
 import './News.css'
 import userImg from '../assets/images/user.jpg'
 import noImg from '../assets/images/no-img.png'
+import blogImg1 from '../assets/images/blog1.jpg'
+import blogImg2 from '../assets/images/blog2.jpg'
+import blogImg3 from '../assets/images/blog3.jpg'
+import blogImg4 from '../assets/images/blog4.jpg'
 
 import { useEffect } from 'react'
 import axios from 'axios'
@@ -15,7 +19,7 @@ import Bookmarks from './Bookmarks'
 
 const categories = ['general', 'world', 'business', 'technology', 'entertainment', 'sports', 'science', 'health', 'nation']
 
-const News = ({ onShowBlogs }) => {
+const News = ({ onShowBlogs, blogs }) => {
 
     const [headline, setHeadline] = useState(null)
     const [news, setNews] = useState([])
@@ -138,7 +142,27 @@ const News = ({ onShowBlogs }) => {
             </div>
             <NewsModel show={showModel} article={selectedArticle} onClose={() => setShowModel(false)}/>
             <Bookmarks show={showBookmarksModel} bookmarks={bookmarks} onClose={() => setShowBookmarksModel(false)} onSelectArticle={handleArticleClick} onDeleteBookmark={handleBookmarkClick} />
-            <div className="my-blogs">My Blogs</div>
+            <div className="my-blogs">
+                <h1 className="my-blogs-heading">My Blogs</h1>
+                <div className="blog-posts">
+                    {blogs.map((blog, index) => (
+                        <div key={index} className="blog-post">
+                        <img src={blog.image || noImg} alt={blog.title} />
+                        <h3>{blog.title}</h3>
+                        {/* <p>{blog.content}</p> */}
+                        <div className="post-buttons">
+                            <button className="edit-post">
+                                <i className="bx bxs-edit"></i>
+                            </button>
+                            <button className="delete-post">
+                                <i className="bx bxs-x-circle"></i>
+                            </button>
+                        </div>
+                        </div>
+                    
+                    ))}
+                </div>
+            </div>
             <div className="weather-calendar">
                 <Weather />
                 <Calendar />
