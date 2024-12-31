@@ -16,10 +16,11 @@ import { useEffect } from 'react'
 import axios from 'axios'
 import NewsModel from './NewsModel'
 import Bookmarks from './Bookmarks'
+import BlogsModel from './BlogsModel'
 
 const categories = ['general', 'world', 'business', 'technology', 'entertainment', 'sports', 'science', 'health', 'nation']
 
-const News = ({ onShowBlogs, blogs }) => {
+const News = ({ onShowBlogs, blogs, onEditBlog, onDeleteBlog }) => {
 
     const [headline, setHeadline] = useState(null)
     const [news, setNews] = useState([])
@@ -30,7 +31,8 @@ const News = ({ onShowBlogs, blogs }) => {
     const [selectedArticle, setSelectedArticle] = useState(null)
     const [bookmarks, setBookmarks] = useState([])
     const [showBookmarksModel, setShowBookmarksModel] = useState(false)
-
+    const [selectedPost, setSelectedPost] = useState(null)
+    const [showBlogModel, setShowBlogModel] = useState(false)
 
     useEffect(() => {
         const fetchNews = async () => {
@@ -86,6 +88,16 @@ const News = ({ onShowBlogs, blogs }) => {
         localStorage.setItem('bookmarks', JSON.stringify(updatedBookmarks));
         return updatedBookmarks;
         });
+      }
+
+      const handleBlogClick = (blog) => {
+        setSelectedPost(blog)
+        setShowBlogModel(true)
+      }
+
+      const closeBlogModel = () => {
+        setShowBlogModel(false)
+        setSelectedPost(null)
       }
 
   return (
@@ -146,15 +158,17 @@ const News = ({ onShowBlogs, blogs }) => {
                 <h1 className="my-blogs-heading">My Blogs</h1>
                 <div className="blog-posts">
                     {blogs.map((blog, index) => (
-                        <div key={index} className="blog-post">
+                        <div key={index} className="blog-post" onClick={() => handleBlogClick(blog)}>
                         <img src={blog.image || noImg} alt={blog.title} />
                         <h3>{blog.title}</h3>
-                        {/* <p>{blog.content}</p> */}
                         <div className="post-buttons">
-                            <button className="edit-post">
+                            <button className="edit-post" onClick={() => onEditBlog(blog)} >
                                 <i className="bx bxs-edit"></i>
                             </button>
-                            <button className="delete-post">
+                            <button className="delete-post" onClick={(e) => {
+                                e.stopPropagation()
+                                onDeleteBlog(blog)
+                                }} >
                                 <i className="bx bxs-x-circle"></i>
                             </button>
                         </div>
@@ -162,6 +176,10 @@ const News = ({ onShowBlogs, blogs }) => {
                     
                     ))}
                 </div>
+                {selectedPost && showBlogModel && (
+                    <BlogsModel show={showBlogModel} blog={selectedPost} onClose={closeBlogModel} />
+                )}
+                
             </div>
             <div className="weather-calendar">
                 <Weather />
