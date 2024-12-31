@@ -29,32 +29,32 @@ const News = ({ onShowBlogs, blogs, onEditBlog, onDeleteBlog }) => {
 
     useEffect(() => {
         const fetchNews = async () => {
-            let url = `https://gnews.io/api/v4/top-headlines?category=${selectedCategory}&lang=en&country=us&max=10&apikey=a79119203086cc5edbabf338cd9215d4`
-
+            let apiKey = import.meta.env.VITE_NEWS_API_KEY;
+            let url = `https://gnews.io/api/v4/top-headlines?category=${selectedCategory}&lang=en&country=us&max=10&apikey=${apiKey}`;
+        
             if (searchQuery) {
-                url = `https://gnews.io/api/v4/search?q=${searchQuery}&lang=en&country=us&max=10&apikey=a79119203086cc5edbabf338cd9215d4`
+                url = `https://gnews.io/api/v4/search?q=${searchQuery}&lang=en&country=us&max=10&apikey=${apiKey}`;
             }
-
+        
             try {
                 const response = await axios.get(url);
                 const fetchedNews = response.data.articles;
-
+        
                 fetchedNews.forEach(article => {
                     if (!article.image) {
-                        article.image = noImg
+                        article.image = noImg;
                     }
-                })
-
-                setHeadline(fetchedNews[0])
-                setNews(fetchedNews.slice(1, 7))
-
-                const saveBookmarks = JSON.parse(localStorage.getItem('bookmarks')) || []
-                setBookmarks(saveBookmarks)
-                
+                });
+        
+                setHeadline(fetchedNews[0]);
+                setNews(fetchedNews.slice(1, 7));
+        
+                const saveBookmarks = JSON.parse(localStorage.getItem('bookmarks')) || [];
+                setBookmarks(saveBookmarks);
             } catch (error) {
                 console.error("Error fetching news:", error);
             }
-        }
+        }        
 
         fetchNews()
     }, [selectedCategory, searchQuery])

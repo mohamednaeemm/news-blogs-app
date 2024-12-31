@@ -7,39 +7,44 @@ const Weather = () => {
     const [location, setLocation] = useState("");
 
     useEffect( () => {
-        const fetchDefaultLocation = async() => {
+        const fetchDefaultLocation = async () => {
             const defaultLocation = "Cairo";
-            const url = `https://api.openweathermap.org/data/2.5/weather?q=${defaultLocation}&units=Metric&appid=2ae1f3dd881dbd2a72dae5a83dc2c5cd`
-
-            const response = await axios.get(url)
-
-            setData(response.data)
-
-        }
+            const apiKey = import.meta.env.VITE_WEATHER_API_KEY;
+            const url = `https://api.openweathermap.org/data/2.5/weather?q=${defaultLocation}&units=Metric&appid=${apiKey}`;
+        
+            try {
+                const response = await axios.get(url);
+                setData(response.data);
+            } catch (error) {
+                console.error("Error fetching weather data:", error);
+            }
+        };
+        
+        
+        
         fetchDefaultLocation()
     }, [])
 
-    const search = async() => {
-        const url = `https://api.openweathermap.org/data/2.5/weather?q=${location}&units=Metric&appid=2ae1f3dd881dbd2a72dae5a83dc2c5cd`
-        
+    const search = async () => {
+        const apiKey = import.meta.env.VITE_WEATHER_API_KEY;
+        const url = `https://api.openweathermap.org/data/2.5/weather?q=${location}&units=Metric&appid=${apiKey}`;
+    
         try {
-            const response = await axios.get(url)
-            if(response.data.cod !== 200) {
-                setData({notFound: true})
+            const response = await axios.get(url);
+            if (response.data.cod !== 200) {
+                setData({ notFound: true });
             } else {
-                
-                setData(response.data)
-                setLocation('')
-                } 
-            } catch (error) {
-                if(error.response && error.response.status === 404) {
-                    setData({notFound: true})
-                } else {
-                    console.error("An unexpected error occurred", error)
-                }
+                setData(response.data);
+                setLocation('');
+            }
+        } catch (error) {
+            if (error.response && error.response.status === 404) {
+                setData({ notFound: true });
+            } else {
+                console.error("An unexpected error occurred:", error);
+            }
         }
-
-    }
+    };
 
     const handleInputChange = (e) => {
         setLocation(e.target.value)
