@@ -24,7 +24,6 @@ const NewsModel = ({show, article, onClose}) => {
                 <p className="model-content-text">{article.content}</p>
                 <a href={article.url} target='_blank' rel="noopener noreferrer" className="read-more-link">Read More</a>
             </>)}
-        
       </div>
     </div>
   )

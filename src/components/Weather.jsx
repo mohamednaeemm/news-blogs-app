@@ -51,8 +51,6 @@ const Weather = () => {
         }
     }
 
-    
-
     const getWeatherIcon = (weatherType) => {
         switch(weatherType) {
             case 'Clear':
@@ -72,7 +70,6 @@ const Weather = () => {
                 return <i className="bx bxs-cloud"></i>
         }
     }
-
 
   return (
     <div className="weather">

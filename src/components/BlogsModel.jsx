@@ -1,5 +1,4 @@
 import React from 'react'
-import demoImg from '../assets/images/demo.jpg'
 import './BlogsModel.css'
 
 const BlogsModel = ({show, blog, onClose}) => {

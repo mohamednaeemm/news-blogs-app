@@ -98,3 +98,32 @@
     color: #ddd;
     margin-bottom: 12rem;
 }
+
+@media(max-width: 900px) {
+    .weather {
+        height: 100%;
+    }
+
+    .search-location input {
+        width: 30rem;
+    }
+}
+
+@media(max-height: 750px) {
+    .weather {
+        height: 45%;
+        row-gap: 0;
+    }
+    
+    .weather-data {
+        row-gap: 1rem;
+    }
+    
+    .weather-data i {
+        font-size: 5rem;
+    }
+
+    .not-found {
+        margin-bottom: 5rem;
+    }
+}

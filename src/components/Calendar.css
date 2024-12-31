@@ -84,3 +84,25 @@
     background: linear-gradient(to right, #b88efc, #6877f4);
     border-radius: 50%;
 }
+
+@media(max-width: 900px) {
+    .calendar {
+        height: 100%;
+    }
+}
+
+@media(max-height: 750px) {
+    .calendar {
+        height: calc(60% - 2rem);
+    }
+    
+    .navigate-date {
+        margin-bottom: 1rem;
+    }
+    
+    .weekdays {
+        width: 100%;
+        display: flex;
+        margin: 0;
+    }
+}
