@@ -1,7 +1,7 @@
 .calendar {
     width: 100%;
     min-width: 28rem;
-    height: calc(55% - 2rem);
+    height: calc(55% - 1rem);
     background-color: #111214;
     border-radius: 1rem;
     padding: 1.5rem;
@@ -87,22 +87,47 @@
 
 @media(max-width: 900px) {
     .calendar {
-        height: 100%;
+        min-height: 100%;
     }
 }
 
-@media(max-height: 750px) {
+@media(max-height: 700px) {
     .calendar {
         height: calc(60% - 2rem);
+        padding: 1rem;
     }
     
     .navigate-date {
-        margin-bottom: 1rem;
+        margin-bottom: 0;
     }
     
     .weekdays {
         width: 100%;
         display: flex;
         margin: 0;
+    }
+}
+
+@media(max-width: 500px) {
+    .calendar {
+        min-height: 65%;
+    }
+
+    .navigate-date {
+        margin-bottom: 1.5rem;
+    }
+    
+    .navigate-date h2 {
+        font-size: 3rem;
+    }
+
+    .weekdays {
+        width: 100%;
+        display: flex;
+        margin: 0;
+    }
+
+    .days span {
+        font-size: 2rem;
     }
 }

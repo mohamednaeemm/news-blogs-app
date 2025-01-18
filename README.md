@@ -1,6 +1,6 @@
 # News Blogs App
 
-[**Live Demo**](https://your-vercel-url.vercel.app)
+[**Live Demo**](https://news-blogs-app-git-main-mohamednaeemms-projects.vercel.app/)
 
 This is a **News Blogs App** built with **React**, **Vite**, and **CSS**. The app allows users to view the latest news, search for news articles, and check the weather. It pulls data from two public APIs: **GNews** for news articles and **OpenWeatherMap** for weather information. The app stores user bookmarks in **LocalStorage** for easy access to saved news articles.
 
@@ -73,10 +73,4 @@ The app should now be running locally at `http://localhost:5173`.
 4. Check the current weather for Cairo or enter your custom location.
 5. Bookmark your favorite news articles to view them later.
 6. The app is fully responsive, so you can use it on mobile, tablet, or desktop.
-
-## Deployment
-
-This app is deployed using **Vercel**. You can view the live version of the app at the following URL:
-
-[**Live Demo**](https://your-vercel-url.vercel.app)
 

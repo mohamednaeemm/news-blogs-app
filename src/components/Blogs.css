@@ -191,9 +191,10 @@
 
     .blogs-left img {
         top: 10%;
-        right: auto;
-        left: 50%;
+        /* right: auto; */
+        left: 15%;
         transform: translateX(-50%);
+        width: 15%;
     }
 
     .blogs-right {
@@ -208,11 +209,20 @@
     }
 
     .blogs-right-form {
-        margin-top: 18rem;
+        margin-top: 1rem;
+    }
+
+    .blogs-right-form.visible {
+        row-gap: 1rem;
     }
 
     .title-input, .text-input {
         width: 40rem;
+    }
+
+    .text-input {
+        aspect-ratio: 5 / 2;
+        resize: none;
     }
 }
 

@@ -96,12 +96,24 @@
     font-family: 'Comfortaa', sans-serif;
     font-size: 1.6rem;
     color: #ddd;
-    margin-bottom: 12rem;
+    position: relative;
+    top: 2rem;
 }
 
 @media(max-width: 900px) {
     .weather {
-        height: 100%;
+        min-height: 100%;
+        min-width: 18rem;
+    }
+
+    .search-location input {
+        width: 15rem;
+    }
+}
+
+@media(max-width: 500px) {
+    .weather {
+        min-height: 45%;
     }
 
     .search-location input {
@@ -109,7 +121,7 @@
     }
 }
 
-@media(max-height: 750px) {
+@media(max-height: 700px) {
     .weather {
         height: 45%;
         row-gap: 0;
@@ -117,13 +129,10 @@
     
     .weather-data {
         row-gap: 1rem;
+        margin-top: 1rem;
     }
     
     .weather-data i {
-        font-size: 5rem;
-    }
-
-    .not-found {
-        margin-bottom: 5rem;
+        font-size: 3rem;
     }
 }
